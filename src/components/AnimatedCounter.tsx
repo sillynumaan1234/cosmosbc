@@ -49,6 +49,7 @@ const AnimatedCounter = ({
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
       className="text-center"
+      style={{ willChange: "transform, opacity" }}
     >
       <div className="text-4xl lg:text-6xl font-display font-bold text-gradient-gold mb-2">
         {prefix}
