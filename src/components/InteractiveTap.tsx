@@ -40,6 +40,7 @@ const InteractiveTap = ({ image, title, description }: InteractiveTapProps) => {
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
       className="relative flex flex-col items-center"
+      style={{ willChange: "transform, opacity" }}
     >
       {/* Tap Container */}
       <div className="relative">
