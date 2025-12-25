@@ -41,11 +41,15 @@ const Index = () => {
       {/* Hero Section with Video */}
       <section ref={heroRef} className="relative h-screen overflow-hidden">
         <motion.div
-          style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}
+          initial={{ opacity: 1 }}
+          style={{ scale: heroScale, y: heroY }}
           className="absolute inset-0"
         >
           {/* Video Background */}
-          <video
+          <motion.video
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
             autoPlay
             muted
             loop
@@ -53,7 +57,7 @@ const Index = () => {
             className="video-hero"
           >
             <source src={heroVideo} type="video/mp4" />
-          </video>
+          </motion.video>
 
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background" />
@@ -66,7 +70,7 @@ const Index = () => {
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
+              transition={{ duration: 1.33, delay: 1.0 }}
               className="mb-6"
             >
               <span className="text-primary text-sm font-medium uppercase tracking-[0.3em]">
@@ -77,7 +81,7 @@ const Index = () => {
             <motion.h1
               initial={{ opacity: 0, y: 60 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.7 }}
+              transition={{ duration: 1.33, delay: 1.25 }}
               className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.9] mb-8 text-balance"
             >
               Elegance in
@@ -88,7 +92,7 @@ const Index = () => {
             <motion.p
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.9 }}
+              transition={{ duration: 1.33, delay: 1.5 }}
               className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12"
             >
               Discover the perfect fusion of timeless craftsmanship and modern innovation. 
@@ -98,7 +102,7 @@ const Index = () => {
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.1 }}
+              transition={{ duration: 1.33, delay: 1.75 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Link to="/products">
