@@ -55,13 +55,23 @@
 @layer components {
   /* PRIMARY BUTTON */
   .btn-primary {
-    @apply bg-primary text-primary-foreground font-medium
-           px-6 py-4 rounded-full
-           transition-all duration-300
-           hover:scale-105 hover:shadow-lg
-           w-full sm:w-auto;
-    box-shadow: 0 0 40px -10px hsla(221, 83%, 41%, 0.35);
+  @apply bg-primary text-primary-foreground font-medium
+         px-5 py-4 rounded-full
+         transition-all duration-300
+         hover:shadow-lg
+         w-full sm:w-auto;
+  max-width: 100%;
+}
+
+/* Mobile CTA safety */
+@media (max-width: 640px) {
+  .btn-primary {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    border-radius: 9999px;
   }
+}
+
 
   /* GHOST BUTTON */
   .btn-ghost {
