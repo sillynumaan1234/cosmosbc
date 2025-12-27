@@ -1,7 +1,12 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -15,6 +20,79 @@ import productShower from "@/assets/product-shower-1.jpg";
 import productBathtub from "@/assets/product-bathtub-1.jpg";
 import productSink from "@/assets/product-sink-1.jpg";
 import bathroomLifestyle from "@/assets/bathroom-lifestyle-1.jpg";
+
+/* ---------------- TESTIMONIAL CAROUSEL ---------------- */
+
+const testimonials = [
+  {
+    quote:
+      "Cosmos has completely redefined our expectations from bathroom fixtures. The craftsmanship is exceptional.",
+    name: "Alexandra Chen",
+    role: "Interior Designer",
+  },
+  {
+    quote:
+      "From finish to performance, every Cosmos product feels meticulously engineered.",
+    name: "Rahul Mehta",
+    role: "Architect",
+  },
+  {
+    quote:
+      "Minimal, elegant, and durable. Our clients consistently love Cosmos installations.",
+    name: "Sophia Laurent",
+    role: "Luxury Home Consultant",
+  },
+];
+
+const TestimonialCarousel = () => {
+  const [index, setIndex] = useState(0);
+
+  const prev = () =>
+    setIndex((i) => (i === 0 ? testimonials.length - 1 : i - 1));
+  const next = () =>
+    setIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1));
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
+  const t = testimonials[index];
+
+  return (
+    <div className="relative premium-card p-10 lg:p-14">
+      <p className="text-xl lg:text-2xl leading-relaxed mb-8">
+        “{t.quote}”
+      </p>
+
+      <div className="text-muted-foreground mb-8">
+        <strong className="text-foreground">{t.name}</strong>
+        <div className="text-sm">{t.role}</div>
+      </div>
+
+      <div className="flex justify-center gap-6">
+        <button
+          onClick={prev}
+          className="p-2 rounded-full border border-border hover:bg-primary/10 transition"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={next}
+          className="p-2 rounded-full border border-border hover:bg-primary/10 transition"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+/* ---------------- MAIN PAGE ---------------- */
 
 const Index = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -40,67 +118,39 @@ const Index = () => {
 
       {/* HERO */}
       <section ref={heroRef} className="relative h-screen overflow-hidden">
-        <motion.div
-          style={{ scale: heroScale, y: heroY }}
-          className="absolute inset-0 overflow-hidden"
-        >
-          <motion.video autoPlay muted loop playsInline className="video-hero">
+        <motion.div style={{ scale: heroScale, y: heroY }} className="absolute inset-0">
+          <video autoPlay muted loop playsInline className="video-hero">
             <source src={heroVideo} type="video/mp4" />
-          </motion.video>
-          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
           <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/60" />
         </motion.div>
 
         <div className="relative h-full flex items-center justify-center">
           <div className="container mx-auto px-6 lg:px-12 text-center">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
-              className="text-primary text-sm uppercase tracking-[0.3em] block mb-6"
-            >
+            <span className="text-primary text-sm uppercase tracking-[0.3em] block mb-6">
               Premium Sanitaryware
-            </motion.span>
+            </span>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.25 }}
-              className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.9] mb-8"
-            >
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.9] mb-8">
               Elegance in
               <br />
               Every <span className="text-gradient-primary">Drop</span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.5 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12"
-            >
-              Discover the perfect fusion of timeless craftsmanship and modern innovation.
-              Cosmos Sanitaryware transforms everyday rituals into luxurious experiences.
-            </motion.p>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12">
+              Timeless craftsmanship fused with modern engineering to elevate
+              everyday rituals.
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.75 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <Link to="/products">
-                <motion.button className="btn-primary inline-flex items-center gap-3">
-                  Explore Collection
-                  <ArrowRight className="w-4 h-4" />
-                </motion.button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/products" className="btn-primary inline-flex items-center gap-3">
+                Explore Collection <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link to="/contact">
-                <motion.button className="btn-ghost">
-                  Get in Touch
-                </motion.button>
+              <Link to="/contact" className="btn-ghost">
+                Get in Touch
               </Link>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -115,90 +165,103 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FEATURED PRODUCTS */}
-      <section className="py-24 lg:py-32">
+      {/* CURATED */}
+      <section className="py-24">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16">
-            <div>
-              <span className="text-primary text-sm uppercase tracking-[0.3em] block mb-4">
-                Our Collection
-              </span>
-              <h2 className="text-4xl lg:text-6xl font-display font-bold">
-                Curated for <br />
-                <span className="text-gradient-primary">Perfection</span>
-              </h2>
-            </div>
-            <Link to="/products">
-              <button className="mt-8 lg:mt-0 inline-flex items-center gap-2 text-foreground hover:text-primary transition-colors">
-                View All Products
-                <ArrowUpRight className="w-5 h-5" />
-              </button>
-            </Link>
-          </div>
+          <h2 className="text-4xl lg:text-6xl font-display font-bold mb-12">
+            Curated for <span className="text-gradient-primary">Perfection</span>
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product, i) => (
-              <ProductCard key={product.title} {...product} delay={i * 0.1} />
+            {products.map((p, i) => (
+              <ProductCard key={p.title} {...p} delay={i * 0.1} />
             ))}
           </div>
         </div>
       </section>
 
       {/* INTERACTIVE */}
-      <section className="py-24 lg:py-32">
-        <div className="container mx-auto px-6 lg:px-12 text-center mb-16">
-          <span className="text-primary text-sm uppercase tracking-[0.3em] block mb-4">
-            Interactive Experience
-          </span>
-          <h2 className="text-4xl lg:text-6xl font-display font-bold mb-6">
+      <section className="py-24 bg-card">
+        <div className="container mx-auto px-6 lg:px-12">
+          <h2 className="text-4xl lg:text-6xl font-display font-bold mb-16 text-center">
             Touch. Feel. <span className="text-gradient-primary">Flow.</span>
           </h2>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 justify-items-center">
-          <InteractiveTap image={productFaucet} title="Arc Series" description="Precision engineering" />
-          <InteractiveTap image={productShower} title="Rain Collection" description="Reimagined rainfall" />
-          <InteractiveTap image={productSink} title="Pure Basin" description="Modern elegance" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 justify-items-center">
+            <InteractiveTap image={productFaucet} title="Arc Series" description="Precision engineered flow" />
+            <InteractiveTap image={productShower} title="Rain Collection" description="Rainfall perfected" />
+            <InteractiveTap image={productSink} title="Pure Basin" description="Sculptural elegance" />
+          </div>
         </div>
       </section>
 
-      {/* LIFESTYLE */}
-      <section className="py-24 lg:py-32 bg-card">
-        <div className="container mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      {/* WHY COSMOS */}
+      <section className="py-24">
+        <div className="container mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <span className="text-primary text-sm uppercase tracking-[0.3em] block mb-4">
-              Why Cosmos
-            </span>
-            <h2 className="text-4xl lg:text-5xl font-display font-bold mb-8">
-              Where Innovation <br />
+            <h2 className="text-4xl lg:text-5xl font-display font-bold mb-6">
+              Where Innovation
+              <br />
               Meets <span className="text-gradient-primary">Artistry</span>
             </h2>
-            <p className="text-muted-foreground">
-              Every Cosmos product is crafted with precision, blending traditional mastery
-              with cutting-edge technology to elevate everyday rituals.
+            <p className="text-muted-foreground mb-8">
+              Designed with obsessive attention to detail, Cosmos products blend
+              aesthetics with engineering excellence.
             </p>
+            <Link to="/about" className="btn-primary">
+              Our Story
+            </Link>
           </div>
-          <img
-            src={bathroomLifestyle}
-            alt="Luxury Bathroom"
-            className="rounded-3xl w-full h-auto object-cover"
-          />
+
+          <img src={bathroomLifestyle} alt="Luxury Bathroom" className="rounded-3xl" />
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-6 lg:px-12 max-w-4xl text-center">
+          <h2 className="text-4xl lg:text-6xl font-display font-bold mb-12">
+            What Clients <span className="text-gradient-primary">Say</span>
+          </h2>
+          <TestimonialCarousel />
+        </div>
+      </section>
+
+      {/* DIVIDER */}
+      <div className="relative">
+        <div className="absolute left-1/2 -translate-x-1/2 w-[70%] h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+      </div>
+
+      {/* MATERIALS */}
+      <section className="py-24">
+        <div className="container mx-auto px-6 lg:px-12">
+          <h2 className="text-4xl lg:text-6xl font-display font-bold text-center mb-16">
+            Crafted from the <span className="text-gradient-primary">Finest</span>
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              ["Surgical-Grade Steel", "Corrosion-resistant, built for life"],
+              ["Nano Ceramic Coating", "Water-repellent, hygienic finish"],
+              ["Eco-Conscious Design", "Up to 40% water savings"],
+            ].map(([title, desc]) => (
+              <div key={title} className="premium-card p-8 text-center">
+                <h3 className="font-semibold mb-4">{title}</h3>
+                <p className="text-muted-foreground">{desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-24 lg:py-32 text-center">
+      <section className="py-24 bg-card text-center">
         <h2 className="text-4xl lg:text-6xl font-display font-bold mb-6">
           Begin Your <span className="text-gradient-primary">Transformation</span>
         </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto mb-10">
-          Speak with our experts and discover the perfect solution for your space.
-        </p>
-        <Link to="/contact">
-          <button className="btn-primary inline-flex items-center gap-2">
-            Get in Touch
-            <ArrowUpRight className="w-4 h-4" />
-          </button>
+
+        <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+          Get in Touch <ArrowUpRight className="w-4 h-4" />
         </Link>
       </section>
 
