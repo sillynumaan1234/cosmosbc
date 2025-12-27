@@ -33,12 +33,12 @@ const Index = () => {
   ];
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background min-h-screen overflow-x-hidden">
       <Navigation />
 
       {/* Hero Section */}
       <section ref={heroRef} className="relative h-screen overflow-hidden">
-        <motion.div style={{ scale: heroScale, y: heroY }} className="absolute inset-0">
+        <motion.div style={{ scale: heroScale, y: heroY }} className="absolute inset-0 overflow-hidden">
           <motion.video autoPlay muted loop playsInline className="video-hero">
             <source src={heroVideo} type="video/mp4" />
           </motion.video>
