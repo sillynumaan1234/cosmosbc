@@ -143,12 +143,18 @@ const Index = () => {
               everyday rituals.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/products" className="btn-primary inline-flex items-center gap-3">
-                Explore Collection <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link to="/contact" className="btn-ghost">
-                Get in Touch
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+             <Link to="/products" className="w-full sm:w-auto">
+              <button className="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-3">
+                Explore Collection
+               <ArrowRight className="w-4 h-4" />
+              </button>
+           </Link>
+
+           <Link to="/contact" className="w-full sm:w-auto">
+              <button className="btn-ghost w-full sm:w-auto inline-flex justify-center">
+                  Get in Touch
+               </button>
               </Link>
             </div>
           </div>
