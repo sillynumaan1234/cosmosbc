@@ -7,8 +7,6 @@ const navLinks = [
   { name: "Home", path: "/" },
   { name: "Products", path: "/products" },
   { name: "About", path: "/about" },
-  { name: "Showroom", path: "/showroom" },
-  { name: "Contact", path: "/contact" },
 ];
 
 const Navigation = () => {
@@ -49,7 +47,7 @@ const Navigation = () => {
                 className="text-2xl font-display font-bold tracking-tight"
               >
                 <span className="text-foreground">COSMOS</span>
-                <span className="text-gradient-gold ml-1">.</span>
+                <span className="text-gradient-primary ml-1">.</span>
               </motion.div>
             </Link>
 
@@ -68,7 +66,7 @@ const Navigation = () => {
               ))}
             </div>
 
-            {/* CTA Button */}
+            {/* Primary CTA */}
             <div className="hidden lg:block">
               <Link to="/contact">
                 <motion.button
@@ -76,7 +74,7 @@ const Navigation = () => {
                   whileTap={{ scale: 0.95 }}
                   className="btn-primary text-sm"
                 >
-                  Get Quote
+                  Contact
                 </motion.button>
               </Link>
             </div>
@@ -127,6 +125,8 @@ const Navigation = () => {
                     </Link>
                   </motion.div>
                 ))}
+
+                {/* Mobile CTA */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -135,7 +135,7 @@ const Navigation = () => {
                 >
                   <Link to="/contact">
                     <button className="btn-primary w-full text-center">
-                      Get Quote
+                      Contact
                     </button>
                   </Link>
                 </motion.div>
