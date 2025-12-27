@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import ScrollLockSection from "@/components/ScrollLockSection";
 import InteractiveTap from "@/components/InteractiveTap";
 import ProductCard from "@/components/ProductCard";
 import AnimatedCounter from "@/components/AnimatedCounter";
@@ -109,24 +108,46 @@ const Index = () => {
           <AnimatedCounter end={35} label="Countries Served" />
         </div>
       </section>
+      <section className="py-24 lg:py-32">
+  <div className="container mx-auto px-6 lg:px-12">
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      className="text-center mb-16"
+    >
+      <span className="text-primary text-sm font-medium uppercase tracking-[0.3em] mb-4 block">
+        Interactive Experience
+      </span>
+      <h2 className="text-4xl lg:text-6xl font-display font-bold mb-6">
+        Touch. Feel. <span className="text-gradient-primary">Flow.</span>
+      </h2>
+      <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+        Experience precision-engineered water flow through our signature collections.
+      </p>
+    </motion.div>
 
-      {/* Interactive Section */}
-      <ScrollLockSection>
-        <div className="container mx-auto px-6 lg:px-12 text-center mb-16">
-          <span className="text-primary text-sm uppercase tracking-[0.3em] block mb-4">
-            Interactive Experience
-          </span>
-          <h2 className="text-4xl lg:text-6xl font-display font-bold mb-6">
-            Touch. Feel. <span className="text-gradient-primary">Flow.</span>
-          </h2>
-        </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 justify-items-center">
+      <InteractiveTap
+        image={productFaucet}
+        title="Arc Series"
+        description="Sleek design meets precision engineering"
+      />
+      <InteractiveTap
+        image={productShower}
+        title="Rain Collection"
+        description="Rainfall experience, reimagined"
+      />
+      <InteractiveTap
+        image={productSink}
+        title="Pure Basin"
+        description="Sculptural elegance for modern spaces"
+      />
+       </div>
+          </div>
+    </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 justify-items-center">
-          <InteractiveTap image={productFaucet} title="Arc Series" description="Precision engineering" />
-          <InteractiveTap image={productShower} title="Rain Collection" description="Reimagined flow" />
-          <InteractiveTap image={productSink} title="Pure Basin" description="Modern elegance" />
-        </div>
-      </ScrollLockSection>
 
       {/* CTA */}
       <section className="py-24 relative overflow-hidden">

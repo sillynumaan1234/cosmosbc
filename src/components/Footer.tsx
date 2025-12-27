@@ -28,43 +28,38 @@ const Footer = () => {
 
   return (
     <footer className="bg-card border-t border-border">
-      {/* CTA Section */}
       <div className="container mx-auto px-6 lg:px-12 py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <h2 className="text-4xl lg:text-6xl font-display font-bold mb-6 text-balance">
-            Ready to Transform Your Space?
-          </h2>
-          <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
-            Experience the perfect blend of luxury and functionality. Visit our showroom or get in touch today.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/showroom">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-primary inline-flex items-center gap-2"
-              >
-                Visit Showroom
-                <ArrowUpRight className="w-4 h-4" />
-              </motion.button>
-            </Link>
-            <Link to="/contact">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-ghost inline-flex items-center gap-2"
-              >
-                Contact Us
-              </motion.button>
-            </Link>
-          </div>
-        </motion.div>
+
+        {/* CTA Section — HIDDEN */}
+        <div className="hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-4xl lg:text-6xl font-display font-bold mb-6 text-balance">
+              Ready to Transform Your Space?
+            </h2>
+            <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
+              Experience the perfect blend of luxury and functionality. Visit our showroom or get in touch today.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/showroom">
+                <motion.button className="btn-primary inline-flex items-center gap-2">
+                  Visit Showroom
+                  <ArrowUpRight className="w-4 h-4" />
+                </motion.button>
+              </Link>
+              <Link to="/contact">
+                <motion.button className="btn-ghost inline-flex items-center gap-2">
+                  Contact Us
+                </motion.button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
 
         {/* Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 py-12 border-t border-border">
@@ -100,10 +95,7 @@ const Footer = () => {
             <ul className="space-y-4">
               {footerLinks.products.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.path}
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
+                  <Link to={link.path} className="text-muted-foreground hover:text-foreground transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -117,10 +109,7 @@ const Footer = () => {
             <ul className="space-y-4">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.path}
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
+                  <Link to={link.path} className="text-muted-foreground hover:text-foreground transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -134,10 +123,7 @@ const Footer = () => {
             <ul className="space-y-4">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.path}
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
+                  <Link to={link.path} className="text-muted-foreground hover:text-foreground transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -156,6 +142,7 @@ const Footer = () => {
             <a href="#" className="hover:text-foreground transition-colors">Terms of Service</a>
           </div>
         </div>
+
       </div>
     </footer>
   );
