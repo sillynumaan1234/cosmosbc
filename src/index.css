@@ -55,12 +55,12 @@
 @layer components {
   /* PRIMARY BUTTON */
   .btn-primary {
-  @apply bg-primary text-primary-foreground font-medium
-         px-8 py-4 rounded-full
-         transition-all duration-300
-         hover:shadow-lg
-  max-width: 100%;
-}
+    @apply bg-primary text-primary-foreground font-medium
+           px-8 py-4 rounded-full
+           transition-all duration-300
+           hover:shadow-lg;
+    max-width: 100%;
+  }
 
 /* Mobile CTA safety */
 @media (max-width: 640px) {
