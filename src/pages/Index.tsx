@@ -266,9 +266,15 @@ const Index = () => {
           Begin Your <span className="text-gradient-primary">Transformation</span>
         </h2>
 
-        <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-          Get in Touch <ArrowUpRight className="w-4 h-4" />
-        </Link>
+        <div className="flex justify-center">
+         <Link to="/contact"
+        className="btn-primary inline-flex items-center justify-center gap-2
+               max-w-[90vw] sm:max-w-none px-8"
+         >
+        Get in Touch <ArrowUpRight className="w-4 h-4" />
+  </Link>
+</div>
+
       </section>
 
       <Footer />

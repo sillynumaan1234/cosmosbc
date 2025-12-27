@@ -56,10 +56,9 @@
   /* PRIMARY BUTTON */
   .btn-primary {
   @apply bg-primary text-primary-foreground font-medium
-         px-5 py-4 rounded-full
+         px-8 py-4 rounded-full
          transition-all duration-300
          hover:shadow-lg
-         w-full sm:w-auto;
   max-width: 100%;
 }
 
