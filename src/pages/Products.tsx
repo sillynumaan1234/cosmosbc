@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Filter } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import productsData from "../data/products.json";
@@ -9,6 +10,8 @@ import SearchModal from "@/components/SearchModal";
 const PAGE_SIZE = 16;
 
 const Products = () => {
+  const navigate = useNavigate();
+
   const [activeFilter, setActiveFilter] = useState("All");
   const [showFilters, setShowFilters] = useState(false);
 
@@ -17,7 +20,9 @@ const Products = () => {
 
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
+  // Normalize product data for UI
   const products = productsData.map((p: any) => ({
+    id: p.id,
     image: p.image,
     title: p.name,
     category: p.category,
@@ -25,11 +30,13 @@ const Products = () => {
     rawPrice: p.price,
   }));
 
+  // Categories from folders
   const categories = [
     "All",
     ...Array.from(new Set(productsData.map((p: any) => p.category))),
   ];
 
+  // Price bounds
   const prices = products.map((p) => p.rawPrice);
   const absoluteMin = Math.min(...prices);
   const absoluteMax = Math.max(...prices);
@@ -39,6 +46,7 @@ const Products = () => {
 
   const resetPagination = () => setVisibleCount(PAGE_SIZE);
 
+  // Filtering logic
   const filteredProducts = products.filter((product) => {
     const matchesCategory =
       activeFilter === "All" || product.category === activeFilter;
@@ -107,7 +115,7 @@ const Products = () => {
               ))}
             </div>
 
-            {/* Search CTA – elevated on desktop */}
+            {/* Search CTA */}
             <motion.button
               whileTap={{ scale: 0.97 }}
               onClick={() => setSearchOpen(true)}
@@ -132,7 +140,7 @@ const Products = () => {
               Search products
             </motion.button>
 
-            {/* Mobile Filter + Count */}
+            {/* Mobile Filter */}
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowFilters(!showFilters)}
@@ -159,12 +167,16 @@ const Products = () => {
             <AnimatePresence mode="popLayout">
               {visibleProducts.map((product, index) => (
                 <motion.div
-                  key={`${product.title}-${index}`}
+                  key={`${product.id}-${index}`}
                   layout
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35 }}
+                  onClick={() =>
+                    navigate(`/products/${product.category}/${product.id}`)
+                  }
+                  className="cursor-pointer"
                 >
                   <div className="group">
                     <div className="premium-card relative overflow-hidden aspect-square mb-3 sm:mb-4">
@@ -208,6 +220,7 @@ const Products = () => {
         </div>
       </section>
 
+      {/* Search Modal */}
       <SearchModal
         open={searchOpen}
         onClose={() => setSearchOpen(false)}

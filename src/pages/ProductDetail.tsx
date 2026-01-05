@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import productsData from "../data/products.json";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import QuoteModal from "@/components/QuoteModal";
 
 const ProductDetail = () => {
   const { category, id } = useParams();
+  const [quoteOpen, setQuoteOpen] = useState(false);
 
   const product = productsData.find(
     (p: any) => p.category === category && p.id === id
@@ -53,18 +56,35 @@ const ProductDetail = () => {
               </p>
 
               <div className="mt-10 flex gap-4">
-                <button className="flex-1 bg-primary text-primary-foreground py-3 rounded-full text-sm font-medium">
+                {/* Enquire Button */}
+                <button
+                  onClick={() => setQuoteOpen(true)}
+                  className="flex-1 bg-primary text-primary-foreground py-3 rounded-full text-sm font-medium"
+                >
                   Enquire on WhatsApp
                 </button>
 
-                <button className="flex-1 border border-border py-3 rounded-full text-sm font-medium text-foreground">
+                {/* Contact Button */}
+                <a
+                  href="/contact"
+                  className="flex-1 border border-border py-3 rounded-full text-sm font-medium text-foreground text-center"
+                >
                   Contact Us
-                </button>
+                </a>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Quote Modal */}
+      <QuoteModal
+        open={quoteOpen}
+        onClose={() => setQuoteOpen(false)}
+        productName={product.name}
+        category={product.category}
+        price={product.price}
+      />
 
       <Footer />
     </div>
