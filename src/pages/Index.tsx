@@ -11,7 +11,6 @@ import {
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import InteractiveTap from "@/components/InteractiveTap";
-import ProductCard from "@/components/ProductCard";
 import AnimatedCounter from "@/components/AnimatedCounter";
 
 import heroVideo from "@/assets/hero-video.mp4";
@@ -65,9 +64,7 @@ const TestimonialCarousel = () => {
 
   return (
     <div className="relative premium-card p-10 lg:p-14">
-      <p className="text-xl lg:text-2xl leading-relaxed mb-8">
-        “{t.quote}”
-      </p>
+      <p className="text-xl lg:text-2xl leading-relaxed mb-8">“{t.quote}”</p>
 
       <div className="text-muted-foreground mb-8">
         <strong className="text-foreground">{t.name}</strong>
@@ -118,7 +115,10 @@ const Index = () => {
 
       {/* HERO */}
       <section ref={heroRef} className="relative h-screen overflow-hidden">
-        <motion.div style={{ scale: heroScale, y: heroY }} className="absolute inset-0">
+        <motion.div
+          style={{ scale: heroScale, y: heroY }}
+          className="absolute inset-0"
+        >
           <video autoPlay muted loop playsInline className="video-hero">
             <source src={heroVideo} type="video/mp4" />
           </video>
@@ -143,18 +143,18 @@ const Index = () => {
               everyday rituals.
             </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-             <Link to="/products" className="w-full sm:w-auto">
-              <button className="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-3">
-                Explore Collection
-               <ArrowRight className="w-4 h-4" />
-              </button>
-           </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/products" className="w-full sm:w-auto">
+                <button className="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-3">
+                  Explore Collection
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </Link>
 
-           <Link to="/contact" className="w-full sm:w-auto">
-              <button className="btn-ghost w-full sm:w-auto inline-flex justify-center">
+              <Link to="/contact" className="w-full sm:w-auto">
+                <button className="btn-ghost w-full sm:w-auto inline-flex justify-center">
                   Get in Touch
-               </button>
+                </button>
               </Link>
             </div>
           </div>
@@ -171,16 +171,38 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CURATED */}
+      {/* CURATED — FIXED */}
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-12">
           <h2 className="text-4xl lg:text-6xl font-display font-bold mb-12">
             Curated for <span className="text-gradient-primary">Perfection</span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((p, i) => (
-              <ProductCard key={p.title} {...p} delay={i * 0.1} />
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {products.map((p) => (
+              <div
+                key={p.title}
+                className="relative rounded-2xl overflow-hidden aspect-square group"
+              >
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+                {/* Text */}
+                <div className="absolute bottom-4 left-4 right-4">
+                  <span className="text-primary text-xs uppercase tracking-wide">
+                    {p.category}
+                  </span>
+                  <h3 className="text-base sm:text-lg font-semibold mt-1">
+                    {p.title}
+                  </h3>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -194,9 +216,21 @@ const Index = () => {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 justify-items-center">
-            <InteractiveTap image={productFaucet} title="Arc Series" description="Precision engineered flow" />
-            <InteractiveTap image={productShower} title="Rain Collection" description="Rainfall perfected" />
-            <InteractiveTap image={productSink} title="Pure Basin" description="Sculptural elegance" />
+            <InteractiveTap
+              image={productFaucet}
+              title="Arc Series"
+              description="Precision engineered flow"
+            />
+            <InteractiveTap
+              image={productShower}
+              title="Rain Collection"
+              description="Rainfall perfected"
+            />
+            <InteractiveTap
+              image={productSink}
+              title="Pure Basin"
+              description="Sculptural elegance"
+            />
           </div>
         </div>
       </section>
@@ -219,7 +253,11 @@ const Index = () => {
             </Link>
           </div>
 
-          <img src={bathroomLifestyle} alt="Luxury Bathroom" className="rounded-3xl" />
+          <img
+            src={bathroomLifestyle}
+            alt="Luxury Bathroom"
+            className="rounded-3xl"
+          />
         </div>
       </section>
 
@@ -233,46 +271,18 @@ const Index = () => {
         </div>
       </section>
 
-      {/* DIVIDER */}
-      <div className="relative">
-        <div className="absolute left-1/2 -translate-x-1/2 w-[70%] h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-      </div>
-
-      {/* MATERIALS */}
-      <section className="py-24">
-        <div className="container mx-auto px-6 lg:px-12">
-          <h2 className="text-4xl lg:text-6xl font-display font-bold text-center mb-16">
-            Crafted from the <span className="text-gradient-primary">Finest</span>
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              ["Surgical-Grade Steel", "Corrosion-resistant, built for life"],
-              ["Nano Ceramic Coating", "Water-repellent, hygienic finish"],
-              ["Eco-Conscious Design", "Up to 40% water savings"],
-            ].map(([title, desc]) => (
-              <div key={title} className="premium-card p-8 text-center">
-                <h3 className="font-semibold mb-4">{title}</h3>
-                <p className="text-muted-foreground">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-24 bg-card text-center">
         <h2 className="text-4xl lg:text-6xl font-display font-bold mb-6">
           Begin Your <span className="text-gradient-primary">Transformation</span>
         </h2>
 
-        <Link 
+        <Link
           to="/contact"
           className="btn-primary inline-flex items-center justify-center gap-2 w-auto"
         >
           Get in Touch <ArrowUpRight className="w-4 h-4" />
         </Link>
-
       </section>
 
       <Footer />

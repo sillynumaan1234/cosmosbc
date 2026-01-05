@@ -20,7 +20,7 @@ const Products = () => {
 
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
-  // Normalize product data for UI
+  // Normalize product data
   const products = productsData.map((p: any) => ({
     id: p.id,
     image: p.image,
@@ -162,7 +162,7 @@ const Products = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-12">
           <motion.div
             layout
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6 lg:gap-8"
+            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
           >
             <AnimatePresence mode="popLayout">
               {visibleProducts.map((product, index) => (
@@ -173,31 +173,45 @@ const Products = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35 }}
-                  onClick={() =>
-                    navigate(`/products/${product.category}/${product.id}`)
-                  }
-                  className="cursor-pointer"
                 >
-                  <div className="group">
-                    <div className="premium-card relative overflow-hidden aspect-square mb-3 sm:mb-4">
-                      <motion.img
-                        whileHover={{ scale: 1.08 }}
-                        transition={{ duration: 0.6 }}
+                  {/* Amazon-style card */}
+                  <div className="bg-card rounded-xl p-3 sm:p-4 shadow-sm">
+                    {/* Image */}
+                    <div className="aspect-square rounded-lg overflow-hidden mb-3">
+                      <img
                         src={product.image}
                         alt={product.title}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div>
-                      <span className="text-primary text-xs font-medium uppercase tracking-wider">
+
+                    {/* Info */}
+                    <div className="space-y-1">
+                      <span className="text-primary text-xs font-medium uppercase tracking-wide">
                         {product.category}
                       </span>
-                      <h3 className="text-base sm:text-lg font-display font-semibold mt-1">
+
+                      <h3 className="text-sm sm:text-base font-semibold line-clamp-2">
                         {product.title}
                       </h3>
-                      <p className="text-muted-foreground mt-1 text-sm">
+
+                      <p className="text-muted-foreground text-sm">
                         {product.price}
                       </p>
+                    </div>
+
+                    {/* CTA */}
+                    <div className="mt-3">
+                      <button
+                        onClick={() =>
+                          navigate(
+                            `/products/${product.category}/${product.id}`
+                          )
+                        }
+                        className="w-full bg-primary text-primary-foreground py-2.5 rounded-lg text-sm font-medium"
+                      >
+                        View Details
+                      </button>
                     </div>
                   </div>
                 </motion.div>
