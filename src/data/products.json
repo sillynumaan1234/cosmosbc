@@ -1,0 +1,30 @@
+[
+  {
+    "id": "showers-not-so-cool-2500",
+    "name": "Not So Cool",
+    "price": 2500,
+    "category": "showers",
+    "image": "/products/showers/Not So Cool 2500.png"
+  },
+  {
+    "id": "showers-not-so-sleek-3200",
+    "name": "Not So Sleek",
+    "price": 3200,
+    "category": "showers",
+    "image": "/products/showers/Not So Sleek 3200.png"
+  },
+  {
+    "id": "taps-cool-2500",
+    "name": "Cool",
+    "price": 2500,
+    "category": "taps",
+    "image": "/products/taps/Cool 2500.png"
+  },
+  {
+    "id": "taps-sleek-3200",
+    "name": "Sleek",
+    "price": 3200,
+    "category": "taps",
+    "image": "/products/taps/Sleek 3200.png"
+  }
+]
